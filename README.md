@@ -1,7 +1,7 @@
 
 # GUIA DO ZIMATISE - Produzir Coleções Online no Telegram
 
-Versão v100
+Versão v101
 
 ## Sumário
 
@@ -18,7 +18,9 @@ Versão v100
       - [Para obter o python:](#para-obter-o-python)
     - [1.3 Compactadores-Winrar ou 7zip](#13-compactadores-winrar-ou-7zip)
   - [2 Preparação os utilitários](#2-preparação-os-utilitários)
-    - [Como baixar](#como-baixar)
+    - [1 - Modo simples - Kit configurado em ptbr](#1---modo-simples---kit-configurado-em-ptbr)
+    - [2 - Modo avançado - Construa e configure do zero](#2---modo-avançado---construa-e-configure-do-zero)
+      - [Como baixar](#como-baixar)
     - [Atualizações de dependências](#atualizações-de-dependências)
   - [3 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#3-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente)
     - [3.1 ETAPA 1 - Compactação de arquivos](#31-etapa-1---compactação-de-arquivos)
@@ -72,14 +74,16 @@ O processo foi construído para ser eficiente, não tomando mais que 3 minutos d
 
 O Zimatise é o app que facilita o fluxo de atividade para processar e upar coleções audiovisuais no telegram.
 
-Por baixo do fluxo de atividade, existem 4 apps especialistas: O Zipind, mass_videojoin, timestamp_link_maker e o telegram_filesender.
+Por baixo do cobertor, existem 4 apps especialistas: O Zipind, mass_videojoin, timestamp_link_maker e o telegram_filesender.
 
-Para esses apps funcionarem, é necessário instalar algumas dependências:
+Para esses apps funcionarem, é necessário usar o sistema operacional windows (10 ou 11 de 64 bits) e instalar algumas dependências:
 O ffmpeg, python e o Compactador.
 
 ### 1.1 ffmpeg
 
 O ffmpeg é uma "caixa de ferramenta" que pode ser utilizada via linha de comando por qualquer linguagem de programação para fazer dezenas de operações com arquivos áudio, vídeo e legendas, incluindo transformar vídeos (codecs, resolução, bitrate) e extrair quaisquer informações (metadados) sobre esses arquivos.
+
+Ele só funciona em windows de 64 bits. Se você usa windows 32 bits, não poderá usar o Zimatise até q mude o sistema operacional.
 
 #### Para obter o ffmpeg:
 - Baixe a partir deste [link direto]((https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z)), que contém a versão completa e atualizada do programa. Ou siga os passos abaixo.
@@ -144,7 +148,7 @@ Execute apenas uma das formas.
 Python é uma linguagem de programação de propósito genérico ao qual o Zimatise e seus apps dependentes foram construídos.
 
 #### Para obter o python:
-* Acesse o site python.org e [baixe a versão 3.8.10](https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe)
+* Acesse o site python.org e [baixe](https://www.python.org/downloads/) a versão estável mais nova.
 * No form 'Advanced Options', marque `Add python 3.8 to PATH`. Esta função automatiza a inclusão do Python no Path do windows, dispensando a repetição do trabalho executado no tópico anterior, com o ffmpeg.
 * Clique em `Install`
 * A instalação pode demorar alguns minutos, mas isso é normal.
@@ -174,6 +178,18 @@ Configuração:
 > Os utilitários devem ser colocados dentro de uma pasta na raiz de uma unidade do seu pc. Ex.: `D:/zimatise_suite`\
 > Este detalhe evita que existam erros de [max_path](https://docs.microsoft.com/pt-br/windows/win32/fileio/maximum-file-path-limitation) durante o processamento dos projetos.
 
+Você pode adquirir o zimtise pelo modo simples ou avançado.
+
+Recomendamos o modo simples para quem não deseja investir tempo aprendendo o processo de configuração e customização neste momento. Escolha um modo.
+
+### 1 - Modo simples - Kit configurado em ptbr
+
+1. Acesse o canal do [telegram do zimatise](https://t.me/zimatise) e baixe a última versão já configurada em ptbr.
+
+2. Descompacte numa pasta na raiz de uma unidade do pc, conforme sugerio anteriormente.
+
+### 2 - Modo avançado - Construa e configure do zero
+
 Baixe os utilitários nos seguintes links:
 
 1. Mass Video Join: [https://github.com/apenasrr/mass_videojoin](https://github.com/apenasrr/mass_videojoin)
@@ -182,7 +198,7 @@ Baixe os utilitários nos seguintes links:
 4. Telegram_filesender: [https://github.com/apenasrr/Telegram_filesender](https://github.com/apenasrr/Telegram_filesender)
 5. Zimatise: [https://github.com/apenasrr/zimatise](https://github.com/apenasrr/zimatise)
 
-### Como baixar
+#### Como baixar
 - Clique no botão “Code” e, em seguida,
 - Clique em “Download ZIP”.
 - Repita o procedimento na página de cada utilitário
@@ -234,10 +250,10 @@ Agora que todas as ferramentas estão prontas, é hora de usá-las.
 > `AVISO: Lembre-se de teclar [Enter] após digitar uma resposta em cada etapa.`
 
 > ATENÇÃO\
-> Mova a pasta do projeto para a raiz de sua unidade de disco.\
+> Mova a pasta do projeto audio-visual para a raiz de sua unidade de disco.\
 > Caso seu disco principal seja a unidade `C` e a pasta do projeto se chame `meu_projeto`, após a pasta ser movida, o caminho para ela será: `C:\meu_projeto`.\
 > Este processo é importante pois o arquivo compactado preserva a estrutura hierárquica das pastas, gerando um resultado inconveniente caso o projeto esteja submerso entre diversas pastas no seu PC.\
-> Após a finalização do projeto, ele naturalmente pode ser movido de volta para a pasta que o usuário achar conveniente.
+> Após a finalização do projeto, você pode o mover de volta para a pasta que achar conveniente.
 - Informe o caminho da pasta raiz do projeto.
 - Para copiar o caminho, acesse a pasta pelo `Windows Explorer` e tecle `[ctrl]+[L], [ctrl]+[c]`
 - Caso ao tentar no colar no terminal, o atalho `[ctrl]+[v]` não funcione, clique com o botão direito do mouse dentro do terminal, que o caminho será colado.
@@ -430,10 +446,8 @@ Caso prefira fazer o upload manualmente, não utilizando a função via Macro de
 
 
 #### Após o Upload
-- Após o término do upload, poste o menu de navegação no canal para facilitar o acesso aos diferentes vídeos e arquivos do projeto.
-- O texto do menu de navegação é o conteúdo do arquivo `summary.txt` presente na pasta do projeto.
-- Por fim, é recomendado 'fixar' a mensagem colada clicando com o botão direito nela e selecionando a opção correspondente.
-
+- Após o término do upload, o menu de navegação será automaticamente postado no canal, facilitando o acesso aos diferentes vídeos e arquivos do projeto.
+- O texto do menu de navegação se encontra no arquivo `summary.txt` presente na pasta do projeto.
 
 ## Customização e maiores detalhes
 ### Aplicação de assinatura no sumário do canal
@@ -460,7 +474,7 @@ Materiais em #Materiais
 ```
 
 ### Ativação do Efeito de Transição nos vídeos
-Esta função é opcional. Para desestimular a prática de cópia dos vídeos sem que haja citação a equipe que os processou, pequenos vídeos podem ser usados no início e final do bloco de vídeo, com também usado na forma de efeitos de transição, entre os diversos vídeos que foram agrupados.
+Esta função é opcional e afeta o processo apenas na configuração de `reencode_plan = group`. Para desestimular a prática de cópia dos vídeos sem que haja citação a equipe que os processou, pequenos vídeos podem ser usados no início e final do bloco de vídeo, com também usado na forma de efeitos de transição, entre os diversos vídeos que foram agrupados.
 
 O Zimatise é inteligente para gerar novos vídeos de transição com resoluções diferentes na medida em que haja necessidade de os agrupar com vídeos cuja resolução seja diferente das encontradas até então.
 
