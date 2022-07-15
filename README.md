@@ -1,7 +1,7 @@
 
 # GUIA DO ZIMATISE - Produzir Coleções Online no Telegram
 
-Versão v101
+Versão v102
 
 ## Sumário
 
@@ -23,13 +23,14 @@ Versão v101
       - [Como baixar](#como-baixar)
     - [Atualizações de dependências](#atualizações-de-dependências)
   - [3 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#3-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente)
-    - [3.1 ETAPA 1 - Compactação de arquivos](#31-etapa-1---compactação-de-arquivos)
-    - [3.2 ETAPA 2 - Gerar relatório de arquivos de vídeos](#32-etapa-2---gerar-relatório-de-arquivos-de-vídeos)
-    - [3.3 ETAPA 3 - Reencode - Transformação de perfis](#33-etapa-3---reencode---transformação-de-perfis)
-    - [3.4 ETAPA 4 - Agrupamento dos vídeos](#34-etapa-4---agrupamento-dos-vídeos)
-    - [3.5 ETAPA 5 - Descrições dos vídeos e do Projeto](#35-etapa-5---descrições-dos-vídeos-e-do-projeto)
-      - [3.5.1 Ajustes das Descrições](#351-ajustes-das-descrições)
-    - [3.6 ETAPA 6 – O Upload](#36-etapa-6--o-upload)
+    - [3.1 - Modo silencioso - Veloz e Furioso](#31---modo-silencioso---veloz-e-furioso)
+    - [3.2 ETAPA 1 - Compactação de arquivos](#32-etapa-1---compactação-de-arquivos)
+    - [3.3 ETAPA 2 - Gerar relatório de arquivos de vídeos](#33-etapa-2---gerar-relatório-de-arquivos-de-vídeos)
+    - [3.4 ETAPA 3 - Reencode - Transformação de perfis](#34-etapa-3---reencode---transformação-de-perfis)
+    - [3.5 ETAPA 4 - Agrupamento dos vídeos](#35-etapa-4---agrupamento-dos-vídeos)
+    - [3.6 ETAPA 5 - Descrições dos vídeos e do Projeto](#36-etapa-5---descrições-dos-vídeos-e-do-projeto)
+      - [3.6.1 Ajustes das Descrições](#361-ajustes-das-descrições)
+    - [3.7 ETAPA 6 – O Upload](#37-etapa-6--o-upload)
       - [Upload via API do telegram](#upload-via-api-do-telegram)
         - [Configuração de token](#configuração-de-token)
         - [Envio para novo canal](#envio-para-novo-canal)
@@ -43,6 +44,7 @@ Versão v101
     - [Separação dos vídeos e demais materiais](#separação-dos-vídeos-e-demais-materiais)
     - [Definição de limites de tamanho e duração](#definição-de-limites-de-tamanho-e-duração)
     - [Ajustes manuais no plano de reencode](#ajustes-manuais-no-plano-de-reencode)
+    - [Retomar processo interrompido](#retomar-processo-interrompido)
   - [Conclusão](#conclusão)
 
 ## Importante
@@ -57,16 +59,18 @@ Este tutorial ensinará como disponibilizar uma coleção audiovisual no telegra
 
 
 Com funções especiais, como:
-- Agrupados de equenos videos em grandes blocos, para reduzir a quantidade de vídeos postados
+- Agrupamento opcional de pequenos videos formando grandes blocos, para reduzir a quantidade de vídeos postados
 - Menu interativo na descrição dos blocos, para navegar entre os diferentes capítulos
 - Assinatura personalizada em cada postagem
-- Materais de não-videos (pdfs e etc) lançados em pacotes divididos de forma independente
-- Descrição do canal gerada automaticamente em modelo preconfigurado. Podendo descrever tamanho do material, duração e link de convite
+- Materiais de não-videos (pdfs e etc) lançados em pacotes divididos de forma independente
+- Descrição do canal gerada automaticamente em modelo pré-configurado. Podendo descrever o tamanho do material, duração e link de convite
 - Efeitos de transição entre os capítulos de um bloco de vídeo
 - Criação automática de novo canal para cada novo projeto
 - Inclusão automática de administradores durante a criação do canal
 
-[Neste canal](https://t.me/+KMgiIG8OU8BmNTUx) é possível visualizar um exemplo do resultado que você será capaz de produzir ao seguir este tutorial.
+Veja alguns exemplos do resultado que você será capaz de produzir ao seguir este tutorial.
+- [single mode](https://t.me/+EQA5GVHUo-Y1ODdh)
+- [group mode](https://t.me/+ZdubDTqIH3gyYzJh)
 
 O processo foi construído para ser eficiente, não tomando mais que 3 minutos de atenção para finalizar um projeto, ainda que contenha dezenas de horas e centenas de gbs.
 
@@ -76,14 +80,21 @@ O Zimatise é o app que facilita o fluxo de atividade para processar e upar cole
 
 Por baixo do cobertor, existem 4 apps especialistas: O Zipind, mass_videojoin, timestamp_link_maker e o telegram_filesender.
 
-Para esses apps funcionarem, é necessário usar o sistema operacional windows (10 ou 11 de 64 bits) e instalar algumas dependências:
+Para esses apps funcionarem, é necessário usar o sistema operacional Windows (10 ou 11 de 64 bits) e instalar algumas dependências:
 O ffmpeg, python e o Compactador.
+
 
 ### 1.1 ffmpeg
 
 O ffmpeg é uma "caixa de ferramenta" que pode ser utilizada via linha de comando por qualquer linguagem de programação para fazer dezenas de operações com arquivos áudio, vídeo e legendas, incluindo transformar vídeos (codecs, resolução, bitrate) e extrair quaisquer informações (metadados) sobre esses arquivos.
 
 Ele só funciona em windows de 64 bits. Se você usa windows 32 bits, não poderá usar o Zimatise até q mude o sistema operacional.
+
+
+Antes de tudo, abra o Windows Explorer e garanta a exibição das extensões dos arquivos. É fácil. Vá no menu "Exibir" e então marque o checkbox “Extensões de nomes de arquivos”.
+
+![](images/image26.png)
+
 
 #### Para obter o ffmpeg:
 - Baixe a partir deste [link direto]((https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z)), que contém a versão completa e atualizada do programa. Ou siga os passos abaixo.
@@ -149,7 +160,7 @@ Python é uma linguagem de programação de propósito genérico ao qual o Zimat
 
 #### Para obter o python:
 * Acesse o site python.org e [baixe](https://www.python.org/downloads/) a versão estável mais nova.
-* No form 'Advanced Options', marque `Add python 3.8 to PATH`. Esta função automatiza a inclusão do Python no Path do windows, dispensando a repetição do trabalho executado no tópico anterior, com o ffmpeg.
+* No form 'Advanced Options', marque `Add python 3.?? to PATH`. Esta função automatiza a inclusão do Python no Path do windows, dispensando a repetição do trabalho executado no tópico anterior, com o ffmpeg.
 * Clique em `Install`
 * A instalação pode demorar alguns minutos, mas isso é normal.
 
@@ -178,7 +189,7 @@ Configuração:
 > Os utilitários devem ser colocados dentro de uma pasta na raiz de uma unidade do seu pc. Ex.: `D:/zimatise_suite`\
 > Este detalhe evita que existam erros de [max_path](https://docs.microsoft.com/pt-br/windows/win32/fileio/maximum-file-path-limitation) durante o processamento dos projetos.
 
-Você pode adquirir o zimtise pelo modo simples ou avançado.
+Você pode adquirir o zimatise pelo modo simples ou avançado.
 
 Recomendamos o modo simples para quem não deseja investir tempo aprendendo o processo de configuração e customização neste momento. Escolha um modo.
 
@@ -186,7 +197,7 @@ Recomendamos o modo simples para quem não deseja investir tempo aprendendo o pr
 
 1. Acesse o canal do [telegram do zimatise](https://t.me/zimatise) e baixe a última versão já configurada em ptbr.
 
-2. Descompacte numa pasta na raiz de uma unidade do pc, conforme sugerio anteriormente.
+2. Descompacte numa pasta na raiz de uma unidade do pc, conforme sugerido anteriormente.
 
 ### 2 - Modo avançado - Construa e configure do zero
 
@@ -217,10 +228,6 @@ Se tivessem sido baixados por linha comando (git clone), as pastas apareceriam d
 Para saber mais: https://docs.github.com/pt/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 ```
 
-- Garanta de que as extensões de arquivo estão sendo exibidas, indo no menu “Exibir” e então marcando o checkbox “Extensões de nomes de arquivos”.
-
-![](images/image26.png)
-
 `ATENÇÃO: OS PASSOS A SEGUIR DEVEM SER REPETIDOS EM TODOS OS UTILITÁRIOS.`
 
 ### Atualizações de dependências
@@ -236,24 +243,51 @@ Para facilitar o processo, tudo foi resumido à execução de 1 arquivo.
 
 ## 3 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente
 
-Agora que todas as ferramentas estão prontas, é hora de usá-las.
+Agora que todas as ferramentas estão prontas, é hora de utilizá-las.
 
 - Acesse a pasta do Zimatise e execute o arquivo “zimatise_one.bat”
 - Será aberta um `terminal` com um menu simples
 
-### 3.1 ETAPA 1 - Compactação de arquivos
+### 3.1 - Modo silencioso - Veloz e Furioso
 
+O zimatise vem com a opção modo silencioso (silent_mode) ativada. Essa opção permite que com um único comando, todo o projeto seja processado e enviado para o telegram. Sem necessidade de ajustes, sendo muito rápido, porém pouco flexível.
+
+Vamos começar com o modo silencioso por ser mais fácil e rápido.
+
+> ATENÇÃO
+> 1) Mova a pasta do projeto audio-visual para a raiz de sua unidade de disco.\
+> Caso seu disco principal seja a unidade `C` e a pasta do projeto se chame `meu_projeto`, após a pasta ser movida, o caminho para ela será: `C:\meu_projeto`.\
+> Este processo é importante pois o arquivo compactado preserva a estrutura hierárquica das pastas, gerando um resultado inconveniente caso o projeto esteja submerso em diversas pastas no seu PC.\
+> Após a finalização do projeto, você pode o mover de volta para a pasta que achar conveniente.
+
+> 2) `Lembre-se de teclar [Enter] após digitar uma resposta em cada etapa.`
+
+> 3) Pule rapidamente para a sessão `Upload via API do telegram` deste tutorial, para gerar um token e configurar as credenciais do seu telegram, pois o Modo Silencioso envia o projeto para o telegram através de sua API. Prossiga o tutorial após configurar o arquivo `credentials.py` assim como é explicado no tutorial.
+
+- Na mensagem que aparecerá no terminal, aperte `[Enter]` para prosseguir no modo silencioso.
+> `Continue to silent mode? (y/n)`
+- Na mensagem que aparecerá no terminal, cole o caminho da pasta do projeto audio-visual.
+- Na primeira vez que você for usar o zimatise, será preciso autenticar uma conexão com o telegram. Ms será só da primeira vez! E depois nunca mais. :) Autenticar é simple, segue os passos:
+  - Aparecerá uma mensagem pedindo o número de seu telefone em formato internacional. Com prefixo `+55` para o caso de telefone brasileiro, seguido do DDD local e seu número de telefone.
+    - Exemplo: Para telefone de São Paulo, com ddd 11, deverá ser digitado algo como: `+5511995429405`
+  - Na mensagem perguntando se o número está correto, digite `y`.
+  - Se você tiver 'segurança de 2 fatores' (2fa) ativado na sua conta, será solicitado sua senha.
+- Se por algum motivo paranoico você NÃO quiser fazer a autenticação da API do telegram, ainda há esperanças de usar o Zimatise. Você pode fazer o envio do projeto através de macro de teclado que será ensinado mais adiante. hehe
+
+Cumprindo bem todos os passos anteriores, não surgirá nenhum erro e a postagem em modo stream será questão de tempo... Em alguns minutos surgirá um novo canal no seu telegram com o nome do projeto e os arquivos e vídeos serão enviados um a um dentro dele, finalizando com a postagem de um menu interativo.
+
+Parabéns! \ o /
+
+O tutorial já poderia terminar por aqui... Mas vamos além. O zimatise permite customizar cada etapa do processo. Vamos explorar essa ferramenta além do 'modo silencioso' e conhecer mais sobre cada etapa do processo.
+
+### 3.2 ETAPA 1 - Compactação de arquivos
+
+- Na mensagem que aparecerá no terminal, digite `n` e depois aperte `[Enter]`, assim pulamos o modo silencioso e entramos no modo manual.
+> `Continue to silent mode? (y/n)`
 - No menu de opções, escolha a primeira opção digitando `1` e confirmando ao teclar `[Enter]`
 
 ![](images/image33.png)
 
-> `AVISO: Lembre-se de teclar [Enter] após digitar uma resposta em cada etapa.`
-
-> ATENÇÃO\
-> Mova a pasta do projeto audio-visual para a raiz de sua unidade de disco.\
-> Caso seu disco principal seja a unidade `C` e a pasta do projeto se chame `meu_projeto`, após a pasta ser movida, o caminho para ela será: `C:\meu_projeto`.\
-> Este processo é importante pois o arquivo compactado preserva a estrutura hierárquica das pastas, gerando um resultado inconveniente caso o projeto esteja submerso entre diversas pastas no seu PC.\
-> Após a finalização do projeto, você pode o mover de volta para a pasta que achar conveniente.
 - Informe o caminho da pasta raiz do projeto.
 - Para copiar o caminho, acesse a pasta pelo `Windows Explorer` e tecle `[ctrl]+[L], [ctrl]+[c]`
 - Caso ao tentar no colar no terminal, o atalho `[ctrl]+[v]` não funcione, clique com o botão direito do mouse dentro do terminal, que o caminho será colado.
@@ -262,18 +296,27 @@ Agora que todas as ferramentas estão prontas, é hora de usá-las.
 
 ![](images/image34.png)
 
-### 3.2 ETAPA 2 - Gerar relatório de arquivos de vídeos
+Os arquivos temporários para processamento do projeto será alocado na pasta de análise do seu projeto (`zimatise\projects\output_{nome_do_projeto}`). Ao longo de cada etapa você pode observar os arquivos empacotados aparecendo lá, relatórios e vídeos convertidos.
 
-Esta etapa se resume em agrupar os vídeos em grandes blocos com uma determinada duração máxima em horas e/ou de tamanho máximo definido em megabytes.
+Para liberar espaço no seu PC, você pode apagar a pasta de análise do seu projeto após finalizar o envio para o telegram.
 
-Para gerar esse efeito, os vídeos a serem agrupados preciam ter o mesmo perfil, com o mesmo **encode de áudio, vídeo** e mesma **resolução**.
+### 3.3 ETAPA 2 - Gerar relatório de arquivos de vídeos
 
-O processo de transformação dos perfis para serem iguais entre si, se chama `homogeneização de perfis`.
+Esta etapa gera um relatório `video_detail.xlsx` com a lista de todos os vídeos de seu projeto e todos os metadados desses vídeos.
 
-Para fazer esta análise e dá as instruções de transformação, siga os passos:
+Caso o zimatise esteja configurado como modo `group` na variável `reencode_plan` no arquivo `zimatise\config.ini`, esta etapa também fará uma análise para saber como agrupar os vídeos em grandes blocos com uma determinada duração máxima em horas e/ou de tamanho máximo definido em megabytes.
+
+Vamos explicar melhor sobre esse agrupamento do modo `group`.
+Para isso ser possível, os vídeos a serem agrupados precisam ter o mesmo perfil, com o mesmo **encode de áudio, vídeo**, mesma **extensão** e mesma **resolução**.
+
+O processo de transformação dos vídeos para ficarem com o mesmo perfil, se chama `homogeneização de perfis`.
+
+Continuemos com a geração do relatório:
 - Ative a segunda opção digitando `2`
 - Informe o caminho da pasta do projeto novamente e aguarde o processo de listagem
-- Após a conclusão do processo, o utilitário informará os perfis encontrados nos vídeos da pasta e montará um plano de ajuste automático (processo de reencode) de modo que cada subpasta de primeiro nível passe a ter vídeos de perfis iguais.
+- Após a conclusão do processo, o utilitário informará os perfis encontrados nos vídeos da pasta e montará um plano de ajuste automático (processo de reencode).
+- Se na configuração do zimatise, o `reencode_plan` estiver como `single`, estiver ativado, esse plano de ajuste se preocupará apenas em garantir que todos os vídeos tenham codec x264/aac e extensão mp4.
+- Já se o `reencode_plan` estivar como `group`, esse plano de ajuste também se buscará homogeneizar o perfil dos vídeos de uma mesma subpasta de primeiro nível.
 
 ![](images/image36.png)\
 Para o exemplo da imagem acima, existem apenas 5 minutos de vídeo para ser reencodado, na última pasta do projeto.
@@ -281,13 +324,13 @@ Para o exemplo da imagem acima, existem apenas 5 minutos de vídeo para ser reen
 > ATENÇÃO\
 > Execute a próxima etapa mesmo que não haja minutos de vídeo para ser reencodado, pois nesta etapa também são geradas transformações no relatório que são essenciais para o processo seguir adequadamente.
 
-### 3.3 ETAPA 3 - Reencode - Transformação de perfis
+### 3.4 ETAPA 3 - Reencode - Transformação de perfis
 
-O próximo passo é o de reencodar os vídeos, para que fiquem com o mesmo perfil de encode/resolução e assim possibilite seu agrupamento.
+O próximo passo é o de reencodar os vídeos, para garantir que tudo corra bem e o telegram seja capaz de  reproduzir online todos os vídeos.
 
-Este processo pode demorar entre 10% e 50% da duração total dos vídeos à serem transformados de acordo com o plano de reencode.
+Este processo pode demorar entre 2% e 50% da duração total dos vídeos à serem transformados de acordo com o plano de reencode. Tudo dependerá da situação que o projeto está em relação aos codecs, extensões e resoluções.
 
-Assim, se o plano de reencode contiver 10 horas de vídeos, o processo de reencode pode demorar entre 1 à 5 horas, dependendo da potência de sua CPU.
+Assim, se o plano de reencode contiver 10 horas de vídeos, o processo de reencode pode demorar entre 12 minutos à 5 horas... Impossível prever com exatidão.
 
 - Selecione a terceira opção digitando `3` e aguarde a conclusão do processo.
 
@@ -297,10 +340,13 @@ Assim, se o plano de reencode contiver 10 horas de vídeos, o processo de reenco
 
 ![](images/image38.png)
 
-### 3.4 ETAPA 4 - Agrupamento dos vídeos
+### 3.5 ETAPA 4 - Agrupamento dos vídeos
+
+> ATENÇÃO\
+> Execute esta etapa ainda que o zimatise esteja configurado com `reencode_plan` como `single`, pois nesta etapa também são geradas transformações no relatório que são essenciais para o processo seguir adequadamente.
 
 - O agrupamento obedecerá 5 critérios:
-  - Vídeos com perfil (resolução/codec), processado na etapa de reencode
+  - Vídeos com perfil (resolução/codec/extensão), processado na etapa de reencode
   - Limites de tamanho de arquivo e duração máxima dos vídeos
   - E ajustes manuais pelo usuário realizados no relatório
 - Selecionar a quarta opção digitando `4` e tecle `[Enter]`
@@ -309,23 +355,25 @@ Assim, se o plano de reencode contiver 10 horas de vídeos, o processo de reenco
 
 ![](images/image9.png)
 
-### 3.5 ETAPA 5 - Descrições dos vídeos e do Projeto
+### 3.6 ETAPA 5 - Descrições dos vídeos e do Projeto
 
 Este é a etapa da geração planilha `descriptions.xlsx`, que contém as descrições dos blocos de vídeos, com marcação temporal (timestamps) que servirá de menu de navegação para cada bloco.
 
 Também será gerado o arquivo `header_project.txt`, contendo a descrição do Canal conforme modelo configurado.
 
-Ambos arquivos serão salvos na pasta do projeto, dentro da pasta do utilitário Zimatise.
+Ambos arquivos serão salvos na pasta de análise do projeto (`zimatise\projects\output_{nome_do_projeto}`).
 - Selecionar a quinta opção digitando `5`
 - Confirme com a tecla `[Enter]` para gerar o arquivo `descriptions.xlsx`.
 - Após gerado, aparecerá a mensagem: `TimeStamp and descriptions files created`
 
 ![](images/image10.png)
 
-#### 3.5.1 Ajustes das Descrições
+#### 3.6.1 Ajustes das Descrições
 
+Este é uma etapa opcional, para ajustar as descrições dos vídeos ou tratar erro de descrição longa demais.
 - Acesse o relatório `descriptions.xlsx`
-- Caso exista avisos na coluna `"warning"` indicando `"max size reached"`, significa que para o vídeo daquela linha, a descrição gerada ultrapassa o limite do Telegram de 1000 caracteres (contendo os espaços).
+- Neste relatório é possível ajustar a descrição que cada vídeo terá após enviado para o telegram.
+- Vale destacar que o zimatise já possui uma configuração ativa para impedir que a descrição de um vídeo ultrapasse o limite máximo permitido pelo telegram. Mas caso exista avisos na coluna `"warning"` indicando `"max size reached"`, significa que para o vídeo daquela linha, a descrição gerada ultrapassa o limite do Telegram de 1000 caracteres (contendo os espaços). Vamos explicar como resolver esse raro problema:
 
 ![](images/image11.png)
 
@@ -346,7 +394,7 @@ Ambos arquivos serão salvos na pasta do projeto, dentro da pasta do utilitário
 
 - Depois que a descrição estiver com 1000 caracteres ou menos, copie e a cole na célula do Excel de onde ela foi originalmente copiada.
 
-### 3.6 ETAPA 6 – O Upload
+### 3.7 ETAPA 6 – O Upload
 Existem dois métodos para fazer o upload para o Telegram.
 
 O método automatizado via Macro de Teclado e o método através da API do telegram.
@@ -447,7 +495,7 @@ Caso prefira fazer o upload manualmente, não utilizando a função via Macro de
 
 #### Após o Upload
 - Após o término do upload, o menu de navegação será automaticamente postado no canal, facilitando o acesso aos diferentes vídeos e arquivos do projeto.
-- O texto do menu de navegação se encontra no arquivo `summary.txt` presente na pasta do projeto.
+- O texto do menu de navegação se encontra no arquivo `summary.txt` presente na pasta de análise do projeto.
 
 ## Customização e maiores detalhes
 ### Aplicação de assinatura no sumário do canal
@@ -530,6 +578,18 @@ O processo de agrupamento dos vídeos é guiado por alguns limites para que o pr
 - Como exemplo, a imagem abaixo demonstra um projeto cujo plano de agrupamento foi ajustado manualmente para que vídeos de módulos diferentes fiquem em blocos diferentes. Sendo os primeiros 4 vídeos num bloco. Do 5º ao 8º em outro boco. 9º ao 11º em outro bloco. E por fim, o último vídeo sozinho num bloco. As numerações dos grupos são sempre sequenciais.
 
 ![](images/image9-1.jpg)
+
+### Retomar processo interrompido
+
+Tanto o upload, quanto as etapas de reencode e agrupamento podem ser continuadas de onde parou caso haja uma interrupção acidental, como queda de energia elétrica ou conexão.
+
+Para retomar, siga os passos:
+- Execute o zimatise normalmente
+- Na mensagem que aparecerá no terminal, digite `n` e depois aperte `[Enter]`, assim pulamos o modo silencioso e entramos no modo manual.
+> `Continue to silent mode? (y/n)`
+- Digite o número da etapa que você deseja retomar.
+- Aparecerá uma mensagem solicitando o local onde está a pasta raiz do projeto. Cole ela.
+- Assim o zimatise será capaz de retomar o processo.
 
 
 ## Conclusão
