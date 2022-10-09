@@ -1,7 +1,7 @@
 
 # GUIA DO ZIMATISE - Produzir Coleções Online no Telegram
 
-Versão v103
+Versão v104
 
 ## Sumário
 
@@ -9,28 +9,29 @@ Versão v103
   - [Sumário](#sumário)
   - [Importante](#importante)
   - [Introdução](#introdução)
-  - [1 - Preparando o ambiente](#1---preparando-o-ambiente)
-    - [1.1 ffmpeg](#11-ffmpeg)
+  - [1 - Com chocolatey é mais gostoso](#1---com-chocolatey-é-mais-gostoso)
+  - [2 - Instalação manual](#2---instalação-manual)
+    - [2.1 ffmpeg](#21-ffmpeg)
       - [Para obter o ffmpeg:](#para-obter-o-ffmpeg)
       - [Configurando o ffmpeg:](#configurando-o-ffmpeg)
         - [Adicionar pasta às variáveis de ambiente](#adicionar-pasta-às-variáveis-de-ambiente)
-    - [1.2 python](#12-python)
+    - [2.2 python](#22-python)
       - [Para obter o python:](#para-obter-o-python)
-    - [1.3 Compactadores-Winrar ou 7zip](#13-compactadores-winrar-ou-7zip)
-  - [2 Preparação os utilitários](#2-preparação-os-utilitários)
-    - [1 - Modo simples - Kit configurado em ptbr](#1---modo-simples---kit-configurado-em-ptbr)
-    - [2 - Modo avançado - Construa e configure do zero](#2---modo-avançado---construa-e-configure-do-zero)
+    - [2.3 Compactadores-Winrar ou 7zip](#23-compactadores-winrar-ou-7zip)
+  - [3 Preparação os utilitários](#3-preparação-os-utilitários)
+    - [3.1 - Modo simples - Kit configurado em ptbr](#31---modo-simples---kit-configurado-em-ptbr)
+    - [3.2 - Modo avançado - Construa e configure do zero](#32---modo-avançado---construa-e-configure-do-zero)
       - [Como baixar](#como-baixar)
     - [Atualizações de dependências](#atualizações-de-dependências)
-  - [3 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#3-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente)
-    - [3.1 - Modo silencioso - Veloz e Furioso](#31---modo-silencioso---veloz-e-furioso)
-    - [3.2 ETAPA 1 - Compactação de arquivos](#32-etapa-1---compactação-de-arquivos)
-    - [3.3 ETAPA 2 - Gerar relatório de arquivos de vídeos](#33-etapa-2---gerar-relatório-de-arquivos-de-vídeos)
-    - [3.4 ETAPA 3 - Reencode - Transformação de perfis](#34-etapa-3---reencode---transformação-de-perfis)
-    - [3.5 ETAPA 4 - Agrupamento dos vídeos](#35-etapa-4---agrupamento-dos-vídeos)
-    - [3.6 ETAPA 5 - Descrições dos vídeos e do Projeto](#36-etapa-5---descrições-dos-vídeos-e-do-projeto)
-      - [3.6.1 Ajustes das Descrições](#361-ajustes-das-descrições)
-    - [3.7 ETAPA 6 – O Upload](#37-etapa-6--o-upload)
+  - [4 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#4-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente)
+    - [4.1 - Modo silencioso - Veloz e Furioso](#41---modo-silencioso---veloz-e-furioso)
+    - [4.2 ETAPA 1 - Compactação de arquivos](#42-etapa-1---compactação-de-arquivos)
+    - [4.3 ETAPA 2 - Gerar relatório de arquivos de vídeos](#43-etapa-2---gerar-relatório-de-arquivos-de-vídeos)
+    - [4.4 ETAPA 3 - Reencode - Transformação de perfis](#44-etapa-3---reencode---transformação-de-perfis)
+    - [4.5 ETAPA 4 - Agrupamento dos vídeos](#45-etapa-4---agrupamento-dos-vídeos)
+    - [4.6 ETAPA 5 - Descrições dos vídeos e do Projeto](#46-etapa-5---descrições-dos-vídeos-e-do-projeto)
+      - [4.6.1 Ajustes das Descrições](#461-ajustes-das-descrições)
+    - [4.7 ETAPA 6 – O Upload](#47-etapa-6--o-upload)
       - [Upload via API do telegram](#upload-via-api-do-telegram)
         - [Configuração de token](#configuração-de-token)
         - [Envio para novo canal](#envio-para-novo-canal)
@@ -57,7 +58,6 @@ O uso dos softwares em conjunto para qualquer objetivo, é por uma decisão indi
 
 Este tutorial ensinará como disponibilizar uma coleção audiovisual no telegram de modo que possa ser assistida online, sem precisar fazer download.
 
-
 Com funções especiais, como:
 - Agrupamento opcional de pequenos videos formando grandes blocos, para reduzir a quantidade de vídeos postados
 - Menu interativo na descrição dos blocos, para navegar entre os diferentes capítulos
@@ -74,17 +74,62 @@ Veja alguns exemplos do resultado que você será capaz de produzir ao seguir es
 
 O processo foi construído para ser eficiente, não tomando mais que 3 minutos de atenção para finalizar um projeto, ainda que contenha dezenas de horas e centenas de gbs.
 
-## 1 - Preparando o ambiente
-
 O Zimatise é o app que facilita o fluxo de atividade para processar e upar coleções audiovisuais no telegram.
 
-Por baixo do cobertor, existem 4 apps especialistas: O Zipind, mass_videojoin, timestamp_link_maker e o telegram_filesender.
+Ele pode ser usado em sistema operacional Windows (10 ou 11 de 64 bits), linux e tem por dependência, os softwares:
+O Python, ffmpeg e o Compactador.
 
-Para esses apps funcionarem, é necessário usar o sistema operacional Windows (10 ou 11 de 64 bits) e instalar algumas dependências:
-O ffmpeg, python e o Compactador.
+## 1 - Com chocolatey é mais gostoso
+
+Chocolatey é um gerenciador de pacote para sistema operacional Windows. Com ele, podemos instalar todos os softwares necessários por comandos no terminal, sem precisar entrar em cada site, fazer downloads e instalar cada aplicação manualmente. Ele permite instalar diversos softwares numa velocidade incrível. :)
+
+**Instalar o chocolatey**
+
+Assim como explicado na [página de instalação](https://chocolatey.org/install) do chocolatey, abra o powershell do windows com privilégio de administrador e execute o comando abaixo:
+`Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))`
+
+Caso você não saiba abrir o powershell:
+1. Aperte a tecla windows (fica geralmente entre control e alt da esquerda)
+2. Digite `powershell`
+3. Clique com o botão direito no ícone do windows powershell
+4. Clique na opção "Executar como administrador"
+
+O chocolatey só será instalado adequadamente se você executar o powershell com privilégio de administrador.
+
+**Instalar os pré-requisitos**
+
+```
+choco install python -y
+choco install git -y
+choco install ffmpeg -y
+choco install 7zip -y
+choco install advanced-renamer -y
+```
+
+Abra o terminal do windows com privilégio administrador e execute cada um dos comandos acima.
+
+É fortemente recomendado a instalação do app "advanced renamer", que é um aplicativo que renomeia arquivos e pastas em lote. No uso do Zimatise você sentirá necessidade de renomear diversos arquivos e pastas, onde com este arquivo essa atividade será muito mais rápida e fácil.
+
+**Baixar o Zimatise**
+
+1. Crie uma pasta vazia chamada "zimatise" na raiz do seu HD. Entre nela.
+2. Digite `CTRL+L` no windows explorer.
+3. Digite `cmd` na barra de endereço e tecle enter para abrir o terminal dentro da pasta do zimatise.
+4. Execute cada um dos comandos abaixo
+
+```
+git clone https://github.com/apenasrr/zimatise
+cd zimatise
+update_libs.bat
+```
+
+Agora que o Zimatise já está baixado, você pode pular para o tópico [4 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#4-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente).
+
+Mas caso deseje conhecer mais um pouco sobre cada pré-requisitos e seu processo manual de instalação e configuração, tenha uma boa leitura. :p
 
 
-### 1.1 ffmpeg
+## 2 - Instalação manual
+### 2.1 ffmpeg
 
 O ffmpeg é uma "caixa de ferramenta" que pode ser utilizada via linha de comando por qualquer linguagem de programação para fazer dezenas de operações com arquivos áudio, vídeo e legendas, incluindo transformar vídeos (codecs, resolução, bitrate) e extrair quaisquer informações (metadados) sobre esses arquivos.
 
@@ -155,7 +200,7 @@ Execute apenas uma das formas.
 ![](images/image25.png)
 
 
-### 1.2 python
+### 2.2 python
 Python é uma linguagem de programação de propósito genérico ao qual o Zimatise e seus apps dependentes foram construídos.
 
 #### Para obter o python:
@@ -166,7 +211,7 @@ Python é uma linguagem de programação de propósito genérico ao qual o Zimat
 
 ![](images/image40.png)
 
-### 1.3 Compactadores-Winrar ou 7zip
+### 2.3 Compactadores-Winrar ou 7zip
 Winrar ou 7zip são softwares compactadores que permitem agregar vários arquivos dentro de um único arquivo, facilitando o envio/recebimento de todo o 'pacote de arquivos' como um único arquivo.
 
 App [Winrar](https://www.win-rar.com/predownload.html?&L=9)
@@ -183,7 +228,7 @@ Configuração:
 - Adicione a pasta do app às variáveis de ambiente seguindo os mesmos passos realizados anteriormente quando se instalou o ffmpeg, no tópico `Adicionar pasta às variáveis de ambiente`.
 
 
-## 2 Preparação os utilitários
+## 3 Preparação os utilitários
 
 > Importante\
 > Os utilitários devem ser colocados dentro de uma pasta na raiz de uma unidade do seu pc. Ex.: `D:/zimatise_suite`\
@@ -193,13 +238,13 @@ Você pode adquirir o zimatise pelo modo simples ou avançado.
 
 Recomendamos o modo simples para quem não deseja investir tempo aprendendo o processo de configuração e customização neste momento. Escolha um modo.
 
-### 1 - Modo simples - Kit configurado em ptbr
+### 3.1 - Modo simples - Kit configurado em ptbr
 
 1. Acesse o canal do [telegram do zimatise](https://t.me/zipsender) e baixe a última versão já configurada em ptbr.
 
 2. Descompacte numa pasta na raiz de uma unidade do pc, conforme sugerido anteriormente.
 
-### 2 - Modo avançado - Construa e configure do zero
+### 3.2 - Modo avançado - Construa e configure do zero
 
 Baixe o zimatise do seguinte link:
 
@@ -226,14 +271,14 @@ Para facilitar o processo, tudo foi resumido à execução de 1 arquivo.
 ![](images/image30.png)
 
 
-## 3 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente
+## 4 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente
 
 Agora que todas as ferramentas estão prontas, é hora de utilizá-las.
 
 - Acesse a pasta do Zimatise e execute o arquivo “zimatise_one.bat”
 - Será aberto um `terminal` com um menu simples
 
-### 3.1 - Modo silencioso - Veloz e Furioso
+### 4.1 - Modo silencioso - Veloz e Furioso
 
 O zimatise vem com a opção modo silencioso (silent_mode) ativada. Essa opção permite que com um único comando, todo o projeto seja processado e enviado para o telegram. Sem necessidade de ajustes, sendo muito rápido, porém pouco flexível.
 
@@ -265,7 +310,7 @@ Parabéns! \ o /
 
 O tutorial já poderia terminar por aqui... Mas vamos além. O zimatise permite customizar cada etapa do processo. Vamos explorar essa ferramenta além do 'modo silencioso' e conhecer mais sobre cada etapa do processo.
 
-### 3.2 ETAPA 1 - Compactação de arquivos
+### 4.2 ETAPA 1 - Compactação de arquivos
 
 - Na mensagem que aparecerá no terminal, digite `n` e depois aperte `[Enter]`, assim pulamos o modo silencioso e entramos no modo manual.
 > `Continue to silent mode? (y/n)`
@@ -285,7 +330,7 @@ Os arquivos temporários para processamento do projeto será alocado na pasta de
 
 Para liberar espaço no seu PC, você pode apagar a pasta de análise do seu projeto após finalizar o envio para o telegram.
 
-### 3.3 ETAPA 2 - Gerar relatório de arquivos de vídeos
+### 4.3 ETAPA 2 - Gerar relatório de arquivos de vídeos
 
 Esta etapa gera um relatório `video_details.csv` com a lista de todos os vídeos de seu projeto e todos os metadados desses vídeos.
 
@@ -309,7 +354,7 @@ Para o exemplo da imagem acima, existem apenas 5 minutos de vídeo para ser reen
 > ATENÇÃO\
 > Execute a próxima etapa mesmo que não haja minutos de vídeo para ser reencodado, pois nesta etapa também são geradas transformações no relatório que são essenciais para o processo seguir adequadamente.
 
-### 3.4 ETAPA 3 - Reencode - Transformação de perfis
+### 4.4 ETAPA 3 - Reencode - Transformação de perfis
 
 O próximo **passo** é o de reencodar os vídeos, executando o plano de reencode montado no passo anterior. Assim garante que os vídeos sejam capazes de serem reproduzidos online, considerando que a [exigência do Telegram](https://core.telegram.org/blackberry/chat-media-send) para reproduzir vídeos é que sejam mp4 com codec de vídeo x264 e codec de áudio aac.
 
@@ -325,7 +370,7 @@ Assim, se o plano de reencode contiver 10 horas de vídeos, o processo de reenco
 
 ![](images/image38.png)
 
-### 3.5 ETAPA 4 - Agrupamento dos vídeos
+### 4.5 ETAPA 4 - Agrupamento dos vídeos
 
 > ATENÇÃO\
 > Execute esta etapa ainda que o zimatise esteja configurado com `reencode_plan` como `single`, pois nesta etapa também são geradas transformações no relatório que são essenciais para o processo seguir adequadamente.
@@ -340,7 +385,7 @@ Assim, se o plano de reencode contiver 10 horas de vídeos, o processo de reenco
 
 ![](images/image9.png)
 
-### 3.6 ETAPA 5 - Descrições dos vídeos e do Projeto
+### 4.6 ETAPA 5 - Descrições dos vídeos e do Projeto
 
 Este é a etapa da geração planilha `upload_plan.csv`, que contém as descrições dos blocos de vídeos, com marcação temporal (timestamps) que servirá de menu de navegação para cada bloco.
 
@@ -353,7 +398,7 @@ Ambos arquivos serão salvos na pasta de análise do projeto (`zimatise\projects
 
 ![](images/image10.png)
 
-#### 3.6.1 Ajustes das Descrições
+#### 4.6.1 Ajustes das Descrições
 
 Este é uma etapa opcional, para ajustar as descrições dos vídeos ou tratar erro de descrição longa demais.
 - Acesse o relatório `upload_plan.csv`
@@ -379,7 +424,7 @@ Este é uma etapa opcional, para ajustar as descrições dos vídeos ou tratar e
 
 - Depois que a descrição estiver com 1000 caracteres ou menos, copie e a cole na célula do Excel de onde ela foi originalmente copiada.
 
-### 3.7 ETAPA 6 – O Upload
+### 4.7 ETAPA 6 – O Upload
 Existem dois métodos para fazer o upload para o Telegram.
 
 O método automatizado via Macro de Teclado e o método através da API do telegram.
