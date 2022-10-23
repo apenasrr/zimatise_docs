@@ -1,7 +1,7 @@
 
 # GUIA DO ZIMATISE - Produzir Coleções Online no Telegram
 
-Versão v104
+Versão v105
 
 ## Sumário
 
@@ -46,6 +46,8 @@ Versão v104
     - [Definição de limites de tamanho e duração](#definição-de-limites-de-tamanho-e-duração)
     - [Ajustes manuais no plano de reencode](#ajustes-manuais-no-plano-de-reencode)
     - [Retomar processo interrompido](#retomar-processo-interrompido)
+    - [Conectar Zimatise com Zipsender](#conectar-zimatise-com-zipsender)
+    - [Evite upload de arquivo travado em 100%](#evite-upload-de-arquivo-travado-em-100)
   - [Conclusão](#conclusão)
 
 ## Importante
@@ -108,7 +110,7 @@ choco install advanced-renamer -y
 
 Abra o terminal do windows com privilégio administrador e execute cada um dos comandos acima.
 
-É fortemente recomendado a instalação do app "advanced renamer", que é um aplicativo que renomeia arquivos e pastas em lote. No uso do Zimatise você sentirá necessidade de renomear diversos arquivos e pastas, onde com este arquivo essa atividade será muito mais rápida e fácil.
+É fortemente recomendado a instalação do app "advanced renamer", que é um aplicativo que renomeia arquivos e pastas em lote. No uso do Zimatise você sentirá necessidade de renomear diversos arquivos e pastas, onde esta aplicação deixará tudo muito mais rápido e fácil.
 
 **Baixar o Zimatise**
 
@@ -292,7 +294,7 @@ Vamos começar com o modo silencioso por ser mais fácil e rápido.
 
 > 2) `Lembre-se de teclar [Enter] após digitar uma resposta em cada etapa.`
 
-> 3) Pule rapidamente para a sessão `Upload via API do telegram` deste tutorial, para gerar um token e configurar as credenciais do seu telegram, pois o Modo Silencioso envia o projeto para o telegram através de sua API. Prossiga o tutorial após configurar o arquivo `credentials.py` assim como é explicado no tutorial.
+> 3) Pule rapidamente para a sessão [Upload via API do telegram](#upload-via-api-do-telegram) deste tutorial, para gerar um token e configurar as credenciais do seu telegram, pois o Modo Silencioso envia o projeto para o telegram através de sua API. Prossiga o tutorial em seguida.
 
 - Na mensagem que aparecerá no terminal, aperte `[Enter]` para prosseguir no modo silencioso.
 > `Continue to silent mode? (y/n)`
@@ -428,6 +430,8 @@ Este é uma etapa opcional, para ajustar as descrições dos vídeos ou tratar e
 Existem dois métodos para fazer o upload para o Telegram.
 
 O método automatizado via Macro de Teclado e o método através da API do telegram.
+
+> Atenção: O método de envio por Macro de teclado foi desabilitado em setembro/2022, mas será reativado no futuro
 
 Neste tutorial, ambos métodos serão abordados, mas é recomendado utilizar o método através da API do telegram, para ser mais eficiente no processo e minimizar riscos de erros manuais.
 
@@ -615,6 +619,37 @@ Para retomar, siga os passos:
 - Digite o número da etapa que você deseja retomar.
 - Aparecerá uma mensagem solicitando o local onde está a pasta raiz do projeto. Cole ela.
 - Assim o zimatise será capaz de retomar o processo.
+
+### Conectar Zimatise com Zipsender
+
+Zimatise transforma coleções audiovisuais em canais do telegram que permite assistir tudo online. Zipsender transforma coleções em pacotes divididos de forma independente em canais do telegram.
+
+Caso o interesse seja ter as duas formas de disponibilização de conteúdo, é possível conectar o final do processo do Zimatise ao início do processo do Zipsender. Assim elimina a necessidade de interferência manual em mover a pasta do projeto para ser processada pelo Zipsender.
+
+- No arquivo `zimatise\config.ini`
+  - Cadastre na flag `move_to_uploaded` o valor `1`
+  - Cadastre na flag `register_invite_link` o valor `1`
+  - Cadastre na flag `folder_path_uploaded` o caminho da pasta de início do processo do Zipsender
+  - Exemplo:
+    - `move_to_uploaded = 1`
+    - `register_invite_link = 1`
+    - `folder_path_uploaded = C:\z_up`
+- Após o projeto ser upado, o link de acesso ao canal do telegram criado será salvo num arquivo ".config" na pasta original do projeto. Depois a pasta original do projeto será movida para o caminho definido em `folder_path_uploaded`.
+
+### Evite upload de arquivo travado em 100%
+
+Ocasionalmente o upload de um arquivo fica travado eternamente com o indicador de progresso marcando 100%.
+
+Este é um problema intermitente da ferramenta usada para fazer conexão do telegram e que ainda não foi solucionado pelos seus desenvolvedores.
+
+Para contornar a situação, é possível cadastrar uma quantidade máxima de minutos que um upload de arquivo deve ter. Onde passado essa quantidade de minutos, caso o upload não tenha sido terminado, o processo de envio é reiniciado automaticamente apenas para aquele arquivo.
+
+Para cadastrar esta duração máxima que serve de gatilho para reiniciar o upload de um arquivo que demora demais para ser upado:
+
+- No arquivo `zimatise\config.ini`
+  - Cadastre na flag `time_limit`, a quantidade de minutos desejada.
+  - Exemplo:
+    - `time_limit = 20`
 
 
 ## Conclusão
