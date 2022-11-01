@@ -1,7 +1,7 @@
 
 # GUIA DO ZIMATISE - Produzir Coleções Online no Telegram
 
-Versão v105
+Versão v106
 
 ## Sumário
 
@@ -49,6 +49,7 @@ Versão v105
     - [Conectar Zimatise com Zipsender](#conectar-zimatise-com-zipsender)
     - [Evite upload de arquivo travado em 100%](#evite-upload-de-arquivo-travado-em-100)
   - [Conclusão](#conclusão)
+  - [Notas de Atualização](#notas-de-atualização)
 
 ## Importante
 
@@ -483,6 +484,10 @@ Caso deseje enviar para um grupo/canal já existente (opção mais lenta :neutra
   - Altere a flag `create_new_channel` para `0`, igual ao exemplo abaixo
   - Ex.: `create_new_channel = 0`
   - Salve e feche o arquivo
+  - Vale destacar que a numeração de hashtag para cada vídeo será contada a partir do número 1. Para ajustar este início contando a partir da última numeração existente no canal, é preciso seguir alguns passos:
+    - O processo não deve ser executado em `silent mode`.
+    - Abra o arquivo `upload_plan.csv` presente na pasta de análise do projeto e altere as descrições do arquivo confirme necessidade.
+    - Abra o arquivo `summary.txt` que contém o sumário que será postado ao final do upload, em seguida realize o mesmo tipo de ajuste.
 
 - Na janela do Zimatise, tecle `6` e confirme com `[Enter]`
 - Tecle novamente `[Enter]` confirmando que será utilizado o arquivo `upload_plan.csv` existente
@@ -660,3 +665,7 @@ Sua construção foi trabalhosa e gostaríamos de sua ajuda para torná-lo mais 
 
 Quer ajudar a melhorar o tutorial?
 - [Abra um issue](https://docs.github.com/pt/issues/tracking-your-work-with-issues/creating-an-issue) sugerindo melhorias
+
+## Notas de Atualização
+
+- 2022/11/01 - Tópico 'Envio para novo canal', customização da numeração de hashtag para caso de upload em canal já existente.
