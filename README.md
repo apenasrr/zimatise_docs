@@ -123,7 +123,7 @@ Abra o terminal do windows com privilégio administrador e execute cada um dos c
 ```
 git clone https://github.com/apenasrr/zimatise
 cd zimatise
-update_libs.bat
+_install.bat
 ```
 
 Agora que o Zimatise já está baixado, você pode pular para o tópico [4 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#4-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente).
@@ -269,7 +269,7 @@ O python é uma linguagem de programação, onde durante a atividade de programa
 O Zimatise possui diversas libs requeridas, que precisamos baixar e atualizar.
 
 Para facilitar o processo, tudo foi resumido à execução de 1 arquivo.
-- Na pasta do zimatise, execute o arquivo `update_libs.bat`.
+- Na pasta do zimatise, execute o arquivo `_install.bat`.
 
 ![](images/image30.png)
 
