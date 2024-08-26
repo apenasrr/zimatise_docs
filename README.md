@@ -25,6 +25,7 @@ Versão v106
     - [Atualizações de dependências](#atualizações-de-dependências)
   - [4 Como utilizar os utilitários - O segredo do Processo Automático e Upload eficiente](#4-como-utilizar-os-utilitários---o-segredo-do-processo-automático-e-upload-eficiente)
     - [4.1 - Modo silencioso - Veloz e Furioso](#41---modo-silencioso---veloz-e-furioso)
+    - [4.1.1 - Modo Batch - Envio em massa](#411---modo-batch---envio-em-massa)
     - [4.2 ETAPA 1 - Compactação de arquivos](#42-etapa-1---compactação-de-arquivos)
     - [4.3 ETAPA 2 - Gerar relatório de arquivos de vídeos](#43-etapa-2---gerar-relatório-de-arquivos-de-vídeos)
     - [4.4 ETAPA 3 - Reencode - Transformação de perfis](#44-etapa-3---reencode---transformação-de-perfis)
@@ -234,8 +235,13 @@ Configuração:
 ## 3 Preparação os utilitários
 
 > Importante\
-> Os utilitários devem ser colocados dentro de uma pasta na raiz de uma unidade do seu pc. Ex.: `D:/zimatise_suite`\
+> 1: Os utilitários devem ser colocados dentro de uma pasta na raiz de uma unidade do seu pc. Ex.: `D:/zimatise_suite`\
 > Este detalhe evita que existam erros de [max_path](https://docs.microsoft.com/pt-br/windows/win32/fileio/maximum-file-path-limitation) durante o processamento dos projetos.
+>
+> 2: Se certifique que seu windows explorer exibe as extensões dos arquivos. Isso facilitará a identificação dos arquivos e pastas.
+> Vá no menu "Exibir" e então marque o checkbox “Extensões de nomes de arquivos”.
+
+![](images/image26.png)>
 
 Você pode adquirir o zimatise pelo modo simples ou avançado.
 
@@ -305,15 +311,40 @@ Vamos começar com o modo silencioso por ser mais fácil e rápido.
     - Exemplo: Para telefone de São Paulo, com ddd 11, deverá ser digitado algo como: `+5511995429405`
   - Na mensagem perguntando se o número está correto, digite `y`.
   - Se você tiver 'segurança de 2 fatores' (2fa) ativado na sua conta, será solicitado sua senha.
-- Se por algum motivo paranoico você NÃO quiser fazer a autenticação da API do telegram, ainda há esperanças de usar o Zimatise. Você pode fazer o envio do projeto através de macro de teclado que será ensinado mais adiante. hehe
 
 Cumprindo bem todos os passos anteriores, não surgirá nenhum erro e a postagem em modo stream será questão de tempo... Em alguns minutos surgirá um novo canal no seu telegram com o nome do projeto e os arquivos e vídeos serão enviados um a um dentro dele, finalizando com a postagem de um menu interativo.
 
 Parabéns! \ o /
 
+Se você tiver muitas pastas de vídeos e deseja enviar uma pasta para um canal diferente, você não precisa repetir o processo para cada uma das pastas. O zimatise possui a função de envio em "modo batch" que simplifica essa atividade. Veremos em seguida.
+
+### 4.1.1 - Modo Batch - Envio em massa
+
+O modo batch é uma funcionalidade do zimatise que permite enviar vários projetos para diferentes canais do telegram sem requerer intervenção manual entre um projeto e outro. Assim é possível enviar colocar 50 projetos na pasta inicial, deixar processar por horas e horas, e ao final, cada projeto estará em um novo canal em formato de streaming.
+
+Para usar o modo batch, é preciso configurar algumas flags no arquivo de configuração que determinal como este processo será realizado.
+
+Abra o arquivo `config.ini` que está na pasta do zimatise e altere variáveis abaixo conforme instruções:
+- **folder_path_start:** A localização pasta que será o início da esteira do processo.
+- **move_to_uploaded:** Marque como 1 indicando que você deseja que após o envio a pasta de cada projeto seja movida para alguma localidade. Se não marcar como 1, o projeto será enviado repetidas vezes indefinidamente. Aceita 1 ou 0. 1 significa que deve mover.
+- **folder_path_uploaded:** A localização da pasta para onde os projetos serão movidos após o envio. Só tem efeito se move_to_uploaded for 1. Se for usar o modo batch, essa pasta deve ser definida e obviamente deve ser diferente da pasta de início da esteira.
+- **send_moc:** Se você deseja que a Foto do projeto enviado, descrição e um link de convite seja enviado para um canal de vitrine ao final de cada envio. Aceita 1 ou 0. 1 significa que deve enviar.
+- **moc_chat_id:** O id do canal de vitrine onde os projetos serão apresentados após envio. Só tem efeito se send_moc for 1.
+- **register_invite_link:** Se as postagens no canal vitrine deve conter um link de convite para acesso ao canal do projeto. Aceita 1 ou 0. 1 significa que deve conter.
+
+Agora vamos iniciar o processo de envio em massa!
+
+- Após configurar o arquivo `config.ini`, adicione alguns projetos na pasta que é o início da esteira do processo.
+- Execute o arquivo `zimatise_batch.bat`
+- Você vai notar que aparece a frase `"Monitoring folder:"`, indicando que o zimatise está monitorando a pasta que é início do processo, mas não está fazendo nada ainda.
+- O zimatise vai identificar o primeiro projeto da esteira e começar o processamento. Após o envio, o projeto será movido para a pasta "folder_path_uploaded" e o zimatise vai identificar o próximo projeto e assim por diante.
+- Agora é só aguardar. :)
+
 O tutorial já poderia terminar por aqui... Mas vamos além. O zimatise permite customizar cada etapa do processo. Vamos explorar essa ferramenta além do 'modo silencioso' e conhecer mais sobre cada etapa do processo.
 
 ### 4.2 ETAPA 1 - Compactação de arquivos
+
+De volta ao zimatise_one.bat, vamos explorar as etapas do processo manual.
 
 - Na mensagem que aparecerá no terminal, digite `n` e depois aperte `[Enter]`, assim pulamos o modo silencioso e entramos no modo manual.
 > `Continue to silent mode? (y/n)`
